@@ -10,9 +10,11 @@ namespace MunicipalServices
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Handles the cleanup of Windows Forms components and resources
+        /// Called when the form is being disposed
+        /// Ensures proper disposal of managed and unmanaged resources
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">True if managed resources should be disposed</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))

@@ -9,17 +9,32 @@ using MunicipalServicesLibrary.DataStructures;
 
 namespace MunicipalServicesLibrary.Services
 {
+    /// <summary>
+    /// Service class responsible for managing the status of service requests
+    /// Handles status updates and validation of status transitions
+    /// </summary>
     public class StatusManagementService
     {
         private readonly IssueRepository _issueRepository;
         private readonly ServiceRequestGraph _requestGraph;
 
+        /// <summary>
+        /// Initializes a new instance of the StatusManagementService
+        /// </summary>
+        /// <param name="issueRepository">Repository for accessing issue data</param>
+        /// <param name="requestGraph">Graph structure for tracking request relationships</param>
         public StatusManagementService(IssueRepository issueRepository, ServiceRequestGraph requestGraph)
         {
             _issueRepository = issueRepository;
             _requestGraph = requestGraph;
         }
 
+        /// <summary>
+        /// Updates the status of a service request
+        /// Validates the status transition and updates related data structures
+        /// </summary>
+        /// <param name="requestId">ID of the request to update</param>
+        /// <param name="newStatus">New status to be applied</param>
         public void UpdateStatus(string requestId, RequestStatus newStatus)
         {
             var issue = _issueRepository.GetAllIssues()

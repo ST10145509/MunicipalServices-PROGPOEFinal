@@ -5,13 +5,35 @@ using System.Drawing;
 
 namespace MunicipalServicesLibrary.DataStructures
 {
+    /// <summary>
+    /// Represents a node in the service request graph structure
+    /// Contains request information and connections to related requests
+    /// </summary>
     public class ServiceRequestNode
     {
+        /// <summary>
+        /// Unique identifier for the request
+        /// </summary>
         public string RequestId { get; set; }
+
+        /// <summary>
+        /// Current status of the request
+        /// </summary>
         public string Status { get; set; }
+
+        /// <summary>
+        /// Timestamp when the node was created or last updated
+        /// </summary>
         public DateTime Timestamp { get; set; }
+
+        /// <summary>
+        /// Dictionary of connected nodes and their relationship weights
+        /// </summary>
         public Dictionary<ServiceRequestNode, int> Edges { get; set; }
 
+        /// <summary>
+        /// Creates a new service request node with the specified ID and status
+        /// </summary>
         public ServiceRequestNode(string requestId, string status)
         {
             RequestId = requestId;
@@ -21,6 +43,10 @@ namespace MunicipalServicesLibrary.DataStructures
         }
     }
 
+    /// <summary>
+    /// Graph data structure for managing relationships between service requests
+    /// Tracks status transitions and related requests
+    /// </summary>
     public class ServiceRequestGraph
     {
         private Dictionary<string, Dictionary<string, int>> edges;

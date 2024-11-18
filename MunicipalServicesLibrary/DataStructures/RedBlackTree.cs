@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace MunicipalServicesLibrary.DataStructures
 {
+    /// <summary>
+    /// Represents the color of a node in the Red-Black Tree
+    /// </summary>
     public enum NodeColor
     {
         Red,
         Black
     }
 
+    /// <summary>
+    /// Represents a node in the Red-Black Tree
+    /// </summary>
+    /// <typeparam name="T">Type that implements IComparable for value comparison</typeparam>
     public class RedBlackNode<T> where T : IComparable<T>
     {
         public T Data { get; set; }
@@ -23,14 +30,24 @@ namespace MunicipalServicesLibrary.DataStructures
         public RedBlackNode(T data)
         {
             Data = data;
-            Color = NodeColor.Red;
+            Color = NodeColor.Red; // New nodes are always red
         }
     }
 
+    /// <summary>
+    /// Self-balancing Red-Black Tree implementation
+    /// Guarantees O(log n) time complexity for basic operations
+    /// </summary>
+    /// <typeparam name="T">Type that implements IComparable for value comparison</typeparam>
     public class RedBlackTree<T> where T : IComparable<T>
     {
         private RedBlackNode<T> root;
 
+        /// <summary>
+        /// Inserts a new value into the tree while maintaining Red-Black properties
+        /// Time Complexity: O(log n)
+        /// </summary>
+        /// <param name="data">Value to insert</param>
         public void Insert(T data)
         {
             var node = new RedBlackNode<T>(data);
@@ -63,6 +80,14 @@ namespace MunicipalServicesLibrary.DataStructures
             FixViolation(node);
         }
 
+        /// <summary>
+        /// Fixes Red-Black Tree violations after insertion
+        /// Ensures the following properties:
+        /// 1. Root is black
+        /// 2. No two adjacent red nodes
+        /// 3. Perfect black height
+        /// </summary>
+        /// <param name="node">Node to start fixing from</param>
         private void FixViolation(RedBlackNode<T> node)
         {
             RedBlackNode<T> parent = null;
@@ -127,6 +152,11 @@ namespace MunicipalServicesLibrary.DataStructures
             root.Color = NodeColor.Black;
         }
 
+        /// <summary>
+        /// Performs a left rotation around the specified node
+        /// Used for maintaining tree balance
+        /// </summary>
+        /// <param name="node">Node to rotate around</param>
         private void RotateLeft(RedBlackNode<T> node)
         {
             RedBlackNode<T> rightChild = node.Right;
@@ -148,6 +178,11 @@ namespace MunicipalServicesLibrary.DataStructures
             node.Parent = rightChild;
         }
 
+        /// <summary>
+        /// Performs a right rotation around the specified node
+        /// Used for maintaining tree balance
+        /// </summary>
+        /// <param name="node">Node to rotate around</param>
         private void RotateRight(RedBlackNode<T> node)
         {
             RedBlackNode<T> leftChild = node.Left;
@@ -169,6 +204,12 @@ namespace MunicipalServicesLibrary.DataStructures
             node.Parent = leftChild;
         }
 
+        /// <summary>
+        /// Searches for a value in the tree
+        /// Time Complexity: O(log n)
+        /// </summary>
+        /// <param name="data">Value to find</param>
+        /// <returns>The found value or default(T) if not found</returns>
         public T Find(T data)
         {
             var current = root;
